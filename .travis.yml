@@ -3,6 +3,7 @@ language: python
 script:
   - ansible-lint ansible/environments.yml
   - ansible-lint ansible/setup.yml
+  - ansible-lint ansible/monitoring.yml
 deploy:
   - provider: script
     script: ./deploy.sh
