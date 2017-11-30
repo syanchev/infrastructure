@@ -85,3 +85,51 @@
           image_name: "Ubuntu 16.04.3"
       tags:
         - dev2-env
+
+    - name: Ensure Travis UI environment stack
+      os_stack:
+        name: travis-UI
+        state: present
+        wait: yes
+        rollback: yes
+        template: "../openstack/tr-UI-environment.yml"
+        parameters:
+          env_name: UI
+          meta_groups: "travis-UI,UI"
+          node_count: 1
+          node_flavor: c2.large
+          image_name: "Ubuntu 14.04"
+      tags:
+        - travis-UI
+		
+    - name: Ensure Travis worker environment stack
+      os_stack:
+        name: travis-worker1
+        state: present
+        wait: yes
+        rollback: yes
+        template: "../openstack/tr-environment.yml"
+        parameters:
+          env_name: worker1
+          meta_groups: "travis,worker"
+          node_count: 2
+          node_flavor: c2.large
+          image_name: "Ubuntu 14.04"
+      tags:
+        - travis-worker1
+		
+    - name: Ensure Travis worker environment stack
+      os_stack:
+        name: travis-worker1
+        state: present
+        wait: yes
+        rollback: yes
+        template: "../openstack/tr-environment.yml"
+        parameters:
+          env_name: worker2
+          meta_groups: "travis,worker"
+          node_count: 2
+          node_flavor: c2.large
+          image_name: "Ubuntu 14.04"
+      tags:
+        - travis-worker2
